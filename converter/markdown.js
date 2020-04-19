@@ -22,8 +22,20 @@ var markdown = {
     'use strict';
     str = parseHeadline(str);
     str = parseHorizontaleLine(str);
+    str = parseLink(str);
     return str;
   }
 };
 
 module.exports = markdown;
+
+var parseLink = function(str) {
+var linkRegExp = /\[([^\[]+)\]\(([^\)]+)\)/;
+var stra = [];
+while ((stra = linkRegExp.exec(str)) !== null) {
+str = str.replace(stra[0], '<a ' + 'href="' + stra[2] + '">' + stra[1] + '</a>');
+}
+return str;
+}
+
+
